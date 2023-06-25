@@ -1,4 +1,4 @@
-import { graphicsSystem, inputSystem, movementSystem } from './systems.js';
+import { graphicsSystem, movementSystem } from './systems.js';
 import { loadSprite } from "./graphics.js";
 import { keyGrid, generateGrid } from './key-grid.js';
 

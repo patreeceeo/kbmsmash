@@ -4,11 +4,6 @@ import { character } from "./character.js";
 import { getCache, SpriteState } from "./graphics.js";
 
 /** @param {number} deltaTime */
-export function inputSystem(deltaTime) {
-  input.position.x = 0;
-  input.position.y = 0;
-}
-/** @param {number} deltaTime */
 export function movementSystem(deltaTime) {
   // update character position every frame.
   // character moves 1 unit per frame.
