@@ -4,41 +4,62 @@ import { keyGrid } from './key-grid.js';
 
 const bombPositions = new Map();
 
-const maxBombs = 5;
-const bombCountDown = 5000;
-const explodesFor = 1000;
+const maxBombs = 6;
+const bombCountdown = 4000;
+const explodesFor = 250;
 const bombRadius = 1;
 const cooldown = 1000;
 
 let surpassedTime = 0;
 export function updateBombs(deltaTime) {
+
   surpassedTime += deltaTime;
-  if (surpassedTime < 100) {
+
+  if (surpassedTime < 200) {
     return;
+  }
+
+  // Bomb state
+  for (let [key, value] of bombPositions) {
+
+    value.countdown -= surpassedTime;
+
+    if (value.countdown <= 0 && value.explodedCountdown === undefined) {
+      value.explodedCountdown = explodesFor;
+    }
+
+    if (value.explodedCountdown !== undefined) {
+      value.explodedCountdown -= surpassedTime;
+    }
+
+    if (value.explodedCountdown <= 0) {
+      // remove bomb from Map
+      bombPositions.delete(key);
+    }
+  }
+
+  // Create bombs
+  const keyGridArr = Array.from(keyGrid.values());
+  if (bombPositions.size < maxBombs) {
+    for (let i = 0; i < input.keysPressed.length; i++) {
+      const k = input.keysPressed.at(-i);
+      let newBomb = false;
+      for (let [key, value] of keyGrid) {
+        if (value.character === k && !bombPositions.has(key)) {
+          bombPositions.set(key, {
+            x: value.x,
+            y: value.y,
+            explodedCountdown: undefined,
+            countdown: bombCountdown
+          })
+          newBomb = true;
+          break;
+        }
+      }
+      if (newBomb) break;
+    }
   }
 
   surpassedTime = 0;
 
-  // activate bombs
-  const keyGridArr = Array.from(keyGrid.values());
-  if (bombPositions.size < maxBombs) {
-    for (let i = 0; i < input.keysPressed.length; i++) {
-      const k = input.keysPressed[i];
-      for (let j = 0; j < keyGridArr.length; j++) {
-        const v = keyGridArr[j];
-        const key = `${v.x},${v.y}`;
-        if (v.character === k && !bombPositions.has(key)) {
-          bombPositions.set(key, {
-            x: v.x,
-            y: v.y,
-            exploded: false,
-            explodedCountDown: undefined,
-            active: true,
-            activatedCountDown: bombCountDown
-          })
-          break;
-        }
-      }
-    }
-  }
 }
