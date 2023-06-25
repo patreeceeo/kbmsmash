@@ -1,4 +1,5 @@
 import { getCache, loadSprite, SpriteState } from "./graphics.js";
+import { input } from './event-handling.js'
 
 loadSprite("/assets/BombDefusalRobot0008.png", "robot", "idle",48, 48).then(() => {
   
