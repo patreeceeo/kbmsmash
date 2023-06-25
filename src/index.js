@@ -2,6 +2,7 @@ import { getCache, loadSprite, SpriteState } from "./graphics.js";
 import { input } from './event-handling.js'
 import { character } from './character.js'
 import { HEIGHT, WIDTH } from './constants.js';
+import { keyGrid, generateGrid } from './key-grid.js';
 
 loadSprite("/assets/BombDefusalRobot0008.png", "robot", "idle",48, 48).then(() => {
 
