@@ -29,6 +29,9 @@ document.addEventListener("mousemove", (e) => {
 
 // on esc, break out of pointer lock
 document.addEventListener("keydown", (e) => {
+  // ignore repeat events
+  if (e.repeat) return;
+
   input.keysPressed.push(e.key);
 });
 
