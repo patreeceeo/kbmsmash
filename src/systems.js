@@ -7,15 +7,22 @@ import { getCache, getForegroundCanvas, SpriteState } from "./graphics.js";
 export function movementSystem(deltaTime) {
   // update character position every frame.
   // character moves 1 unit per frame.
-  character.velocity.x = input.position.x * deltaTime * VELOCITY_SCALE
-  character.velocity.y = input.position.y * deltaTime * VELOCITY_SCALE
+  character.velocity.x = input.position.x * deltaTime * VELOCITY_SCALE;
+  character.velocity.y = input.position.y * deltaTime * VELOCITY_SCALE;
   character.position.x = Math.min(
     WIDTH - character.radius,
-    Math.max(character.radius, (character.position.x += character.velocity.x * deltaTime))
+    Math.max(
+      character.radius,
+      (character.position.x += character.velocity.x * deltaTime)
+    )
   );
+
   character.position.y = Math.min(
     HEIGHT - character.radius,
-    Math.max(character.radius, (character.position.y += character.velocity.y * deltaTime))
+    Math.max(
+      character.radius,
+      (character.position.y += character.velocity.y * deltaTime)
+    )
   );
 }
 
@@ -26,8 +33,11 @@ export function graphicsSystem(deltaTime) {
   const canvas = getForegroundCanvas();
   const ctx = /** @type {CanvasRenderingContext2D} */ (canvas.getContext("2d"));
   ctx.clearRect(0, 0, WIDTH, HEIGHT);
-  ctx.drawImage(image, character.position.x - character.radius, character.position.y - character.radius);
-
+  ctx.drawImage(
+    image,
+    character.position.x - character.radius,
+    character.position.y - character.radius
+  );
 
   // draw virtual joystick
   ctx.beginPath();
@@ -37,6 +47,14 @@ export function graphicsSystem(deltaTime) {
 
   ctx.beginPath();
   ctx.strokeStyle = "red";
-  ctx.ellipse(input.position.x * 10 + 10, input.position.y * 10 + 10, 2, 2, 0, 0, 2 * Math.PI);
+  ctx.ellipse(
+    input.position.x * 10 + 10,
+    input.position.y * 10 + 10,
+    2,
+    2,
+    0,
+    0,
+    2 * Math.PI
+  );
   ctx.stroke();
 }
