@@ -1,22 +1,27 @@
 import { shuffle } from './shuffle.js';
 import { CHAR_POOL, GRID_WIDTH, GRID_HEIGHT } from './constants.js';
+import { getForegroundCanvas } from './graphics.js';
 
-const canvas = document.getElementById('foreground');
 const container = document.getElementById('keygrid');
+container.style.opacity = 0;
 
 const keyGrid = new Map();
 export { keyGrid }
 
-function setContainerDimensions() {
+export function setContainerDimensions() {
+  const canvas = getForegroundCanvas();
   container.style.width = `${canvas.clientWidth}px`;
   container.style.height = `${canvas.clientHeight}px`;
+  window.setTimeout(() => {
+    container.style.opacity = 1;
+  }, 500);
 }
 
-// listen to document size changes and resize grid container
-setContainerDimensions()
 const resizeObserver = new ResizeObserver(() => {
   setContainerDimensions();
 });
+resizeObserver.observe(getForegroundCanvas());
+
 
 function drawKeyGrid() {
 

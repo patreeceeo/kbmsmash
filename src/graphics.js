@@ -127,7 +127,7 @@ export function getForegroundCanvas() {
   return _foreground;
 }
 
-/** 
+/**
   * @param {HTMLCanvasElement} el
   * @param {import("./vec2").Vec2} resolution
   */
