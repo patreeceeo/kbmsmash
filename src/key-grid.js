@@ -1,28 +1,12 @@
 import { shuffle } from './shuffle.js';
+import { GRID_WIDTH, GRID_HEIGHT } from './constants.js';
 
-const gridWidth = 5;
-const gridHeight = 5;
 const pool = 'abcdefghijklmnopqrstuvwxyz'.split('')
 const canvas = document.getElementById('foreground');
 const container = document.getElementById('keygrid');
 
 const keyGrid = new Map();
-generateGrid()
-
 export { keyGrid }
-
-export function generateGrid() {
-  const characters = shuffle(pool);
-
-  let i = 0
-  for (let x = 0; x < gridWidth; x++) {
-    for (let y = 0; y < gridHeight; y++) {
-      keyGrid.set(`${x},${y}`, {x, y, character: characters[i] });
-      i++;
-    }
-  }
-  drawKeyGrid();
-}
 
 function setContainerDimensions() {
   container.style.width = `${canvas.clientWidth}px`;
@@ -36,13 +20,14 @@ const resizeObserver = new ResizeObserver(() => {
 });
 
 function drawKeyGrid() {
+
   // first, clear out container
   container.innerHTML = '';
 
   // draw a div for each row
-  for (let x = 0; x <= gridWidth-1; x++) {
+  for (let x = 0; x <= GRID_WIDTH-1; x++) {
     // draw a div for each column
-    for (let y = 0; y <= gridHeight-1; y++) {
+    for (let y = 0; y <= GRID_WIDTH-1; y++) {
       const cell = document.createElement('div');
       cell.classList.add('keygrid-cell');
       cell.dataset.x = x;
@@ -52,3 +37,22 @@ function drawKeyGrid() {
     }
   }
 }
+
+let surpassedTime = 0;
+
+export function generateGrid(deltaTime) {
+  surpassedTime += deltaTime;
+  if (surpassedTime < 1000) return;
+  surpassedTime = 0;
+  const characters = shuffle(pool);
+  let i = 0
+  for (let x = 0; x < GRID_WIDTH; x++) {
+    for (let y = 0; y < GRID_HEIGHT; y++) {
+      keyGrid.set(`${x},${y}`, {x, y, character: characters[i] });
+      i++;
+    }
+  }
+  drawKeyGrid();
+}
+
+generateGrid()
