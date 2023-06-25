@@ -10,12 +10,12 @@ export function movementSystem(deltaTime) {
   character.velocity.x = input.position.x * deltaTime * VELOCITY_SCALE
   character.velocity.y = input.position.y * deltaTime * VELOCITY_SCALE
   character.position.x = Math.min(
-    WIDTH,
-    Math.max(0, (character.position.x += character.velocity.x * deltaTime))
+    WIDTH - character.radius,
+    Math.max(character.radius, (character.position.x += character.velocity.x * deltaTime))
   );
   character.position.y = Math.min(
-    HEIGHT,
-    Math.max(0, (character.position.y += character.velocity.y * deltaTime))
+    HEIGHT - character.radius,
+    Math.max(character.radius, (character.position.y += character.velocity.y * deltaTime))
   );
 }
 
@@ -26,7 +26,7 @@ export function graphicsSystem(deltaTime) {
   const canvas = getForegroundCanvas();
   const ctx = /** @type {CanvasRenderingContext2D} */ (canvas.getContext("2d"));
   ctx.clearRect(0, 0, WIDTH, HEIGHT);
-  ctx.drawImage(image, character.position.x, character.position.y);
+  ctx.drawImage(image, character.position.x - character.radius, character.position.y - character.radius);
 
 
   // draw virtual joystick
