@@ -114,3 +114,34 @@ export const SpriteState = {
     return this._spriteSets[spriteSet][spriteKey];
   }
 }
+
+/** @type {HTMLCanvasElement | null} */
+let _foreground = null;
+/**
+  * @returns {HTMLCanvasElement}
+  */
+export function getForegroundCanvas() {
+  _foreground = _foreground ||  /** @type {HTMLCanvasElement} */ (
+    document.getElementById("foreground")
+  );
+  return _foreground;
+}
+
+/** 
+  * @param {HTMLCanvasElement} el
+  * @param {import("./vec2").Vec2} resolution
+  */
+export function setupCanvas(el, resolution) {
+  // Get the DPR and size of the canvas
+  const dpr = 2 ** Math.ceil(Math.log2(window.devicePixelRatio));
+
+  el.width = resolution.x * dpr;
+  el.height = resolution.y * dpr;
+
+  const ctx = el.getContext("2d");
+  if (ctx) {
+    ctx.imageSmoothingEnabled = false;
+    // Scale the context to ensure correct drawing operations
+    ctx.scale(dpr, dpr);
+  }
+}

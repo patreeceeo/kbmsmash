@@ -1,7 +1,7 @@
 import { input } from "./event-handling.js";
 import { HEIGHT, VELOCITY_SCALE, WIDTH } from "./constants.js";
 import { character } from "./character.js";
-import { getCache, SpriteState } from "./graphics.js";
+import { getCache, getForegroundCanvas, SpriteState } from "./graphics.js";
 
 /** @param {number} deltaTime */
 export function movementSystem(deltaTime) {
@@ -21,11 +21,9 @@ export function movementSystem(deltaTime) {
 
 /** @param {number} deltaTime */
 export function graphicsSystem(deltaTime) {
-  const canvas = /** @type {HTMLCanvasElement} */ (
-    document.getElementById("foreground")
-  );
   const sprite = SpriteState.find("robot", "idle");
   const image = getCache(sprite.imageId);
+  const canvas = getForegroundCanvas();
   const ctx = /** @type {CanvasRenderingContext2D} */ (canvas.getContext("2d"));
   ctx.clearRect(0, 0, WIDTH, HEIGHT);
   ctx.drawImage(image, character.position.x, character.position.y);
