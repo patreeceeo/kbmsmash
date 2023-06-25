@@ -1,21 +1,25 @@
-// array of keys pressed
-import { WIDTH, HEIGHT } from './constants.js'
-
 const input = {
+  // array of keys pressed
   keysPressed: [],
   position: { x: 0 , y: 0 }
 };
 
 const canvas = document.getElementById('foreground');
+let firstMove = true;
 
 canvas.addEventListener("click", async () => {
   await canvas.requestPointerLock();
+  firstMove = true;
 });
 
 document.addEventListener("mousemove", (e) => {
   if (document.pointerLockElement === canvas) {
-    input.position.x += e.movementX;
-    input.position.y += e.movementY;
+    if(!firstMove){
+      const { movementX, movementY } = e;
+      input.position.x = Math.min(input.position.x + Math.abs(movementX) / 10, 1) * Math.sign(movementX);
+      input.position.y = Math.min(input.position.y + Math.abs(movementY) / 10, 1) * Math.sign(movementY);
+    }
+    firstMove = false;
   }
 }, false);
 
