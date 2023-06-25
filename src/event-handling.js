@@ -1,7 +1,9 @@
 // array of keys pressed
+import { WIDTH, HEIGHT } from './constants.js'
+
 const input = {
   keysPressed: [],
-  movement: { x: 0, y: 0 }
+  position: { x: 0 , y: 0 }
 };
 
 const canvas = document.getElementById('foreground');
@@ -11,8 +13,10 @@ canvas.addEventListener("click", async () => {
 });
 
 document.addEventListener("mousemove", (e) => {
-  input.movement.x += e.movementX;
-  input.movement.y += e.movementY;
+  if (document.pointerLockElement === canvas) {
+    input.position.x += e.movementX;
+    input.position.y += e.movementY;
+  }
 }, false);
 
 
