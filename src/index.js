@@ -19,8 +19,6 @@ loadSprite("/assets/BombDefusalRobot0008.png", "robot", "idle",48, 48).then(() =
 // Map keys to grid.
 function main() {
   window.requestAnimationFrame(main);
-  // update character position every frame.
-  // character moves 1 unit per frame.
   character.velocity.x = Math.min(1, Math.max(-1, input.position.x));
   character.velocity.y = Math.min(1, Math.max(-1, input.position.y));
   character.position.x = Math.min(WIDTH, Math.max(0,character.position.x += character.velocity.x));
