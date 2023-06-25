@@ -1,3 +1,5 @@
+import {clamp} from "./vec2.js";
+
 const input = {
   // array of keys pressed
   keysPressed: [],
@@ -16,8 +18,9 @@ document.addEventListener("mousemove", (e) => {
   if (document.pointerLockElement === canvas) {
     if(!firstMove){
       const { movementX, movementY } = e;
-      input.position.x = Math.min(input.position.x + Math.abs(movementX) / 10, 1) * Math.sign(movementX);
-      input.position.y = Math.min(input.position.y + Math.abs(movementY) / 10, 1) * Math.sign(movementY);
+      input.position.x += Math.min(movementX, 10) / 10;
+      input.position.y += Math.min(movementY, 10) / 10;
+      clamp(input.position, 1);
     }
     firstMove = false;
   }
