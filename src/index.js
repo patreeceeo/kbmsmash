@@ -2,7 +2,7 @@ import { getCache, loadSprite, SpriteState } from "./graphics.js";
 import { input } from './event-handling.js'
 import { character } from './character.js'
 import { HEIGHT, WIDTH } from './constants.js';
-import { keyGrid, generateGrid } from './key-grid.js';
+import { keyGrid, drawKeyGrid, generateGrid } from './key-grid.js';
 
 loadSprite("/assets/BombDefusalRobot0008.png", "robot", "idle",48, 48).then(() => {
 
@@ -16,6 +16,8 @@ loadSprite("/assets/BombDefusalRobot0008.png", "robot", "idle",48, 48).then(() =
       0
     );
 })
+
+drawKeyGrid()
 
 // Map keys to grid.
 function main() {

@@ -7,23 +7,49 @@
       type="module"
     ></script>
     <style>
+      /* use Silkscreen-Regular.ttf everywhere */
+      @font-face {
+        font-family: 'Silkscreen';
+        src: url('./assets/Silkscreen-Regular.ttf') format('truetype');
+        font-weight: normal;
+        font-style: normal;
+      }
+
       body {
+        font-family: 'Silkscreen', sans-serif;
         background-color: black;
       }
+
       #app {
         min-height: calc(min(100vh, 100vw) - 1rem);
         max-width: calc(min(100vh, 100vw) - 1rem);
         margin: 0 auto;
         display: block;
         position: relative;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
       }
       #foreground {
-        height: inherit;
-        width: 100%;
         position: absolute;
-        top: 0;
-        left: 0;
+        width: 100%;
         z-index: 1;
+      }
+      #keygrid {
+        z-index: 2;
+        position: absolute;
+        pointer-events: none;
+        display: flex;
+        flex-wrap: wrap;
+        color: white;
+       }
+      .keygrid-cell {
+        width: 20%;
+        height: 20%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
       }
     </style>
   </head>
