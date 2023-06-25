@@ -16,3 +16,9 @@ Event handling:
 - Build an input object.
 - keyboard keypresses -> update state
 - mouse movement -> update state
+
+## start
+
+```
+cd src && python -m http.server
+```

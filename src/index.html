@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>App</title>
+    <script
+      src="index.js"
+      type="module"
+    ></script>
+    <style>
+      body {
+        background-color: black;
+      }
+      #app {
+        min-height: calc(min(100vh, 100vw) - 1rem);
+        max-width: calc(min(100vh, 100vw) - 1rem);
+        margin: 0 auto;
+        display: block;
+        position: relative;
+      }
+      #foreground {
+        height: inherit;
+        width: 100%;
+        position: absolute;
+        top: 0;
+        left: 0;
+        z-index: 1;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="app">
+      <canvas id="foreground"></canvas>
+    </div>
+  </body>
+</html>
