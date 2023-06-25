@@ -2,7 +2,7 @@ import { getCache, loadSprite, SpriteState } from "./graphics.js";
 import { input } from './event-handling.js'
 import { character } from './character.js'
 import { HEIGHT, WIDTH } from './constants.js';
-import { keyGrid, drawKeyGrid, generateGrid } from './key-grid.js';
+import { keyGrid, generateGrid } from './key-grid.js';
 
 loadSprite("/assets/BombDefusalRobot0008.png", "robot", "idle",48, 48).then(() => {
 
@@ -17,15 +17,21 @@ loadSprite("/assets/BombDefusalRobot0008.png", "robot", "idle",48, 48).then(() =
     );
 })
 
-drawKeyGrid()
-
 // Map keys to grid.
+let tick = 0;
 function main() {
   window.requestAnimationFrame(main);
   character.velocity.x = Math.min(1, Math.max(-1, input.position.x));
   character.velocity.y = Math.min(1, Math.max(-1, input.position.y));
   character.position.x = Math.min(WIDTH, Math.max(0,character.position.x += character.velocity.x));
   character.position.y = Math.min(HEIGHT, Math.max(0,character.position.y += character.velocity.y));
+
+  tick += 1;
+
+  // every 1000 ticks, update the grid
+  if (tick % 300 === 0) {
+    generateGrid()
+  }
 }
 
 main();

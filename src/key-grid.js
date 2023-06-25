@@ -3,6 +3,8 @@ import { shuffle } from './shuffle.js';
 const gridWidth = 5;
 const gridHeight = 5;
 const pool = 'abcdefghijklmnopqrstuvwxyz'.split('')
+const canvas = document.getElementById('foreground');
+const container = document.getElementById('keygrid');
 
 const keyGrid = new Map();
 generateGrid()
@@ -19,10 +21,8 @@ export function generateGrid() {
       i++;
     }
   }
+  drawKeyGrid();
 }
-
-const canvas = document.getElementById('foreground');
-const container = document.getElementById('keygrid');
 
 function setContainerDimensions() {
   container.style.width = `${canvas.clientWidth}px`;
@@ -35,7 +35,10 @@ const resizeObserver = new ResizeObserver(() => {
   setContainerDimensions();
 });
 
-export function drawKeyGrid() {
+function drawKeyGrid() {
+  // first, clear out container
+  container.innerHTML = '';
+
   // draw a div for each row
   for (let x = 0; x <= gridWidth-1; x++) {
     // draw a div for each column
