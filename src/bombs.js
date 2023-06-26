@@ -23,9 +23,9 @@ export const bombState = {
 
 
 const maxBombs = 9;
-const bombCountdown = 1600;
+const bombCountdown = 1000;
 const explodesFor = 600;
-const bombRadius = 1;
+const bombRadius = 1.5;
 
 let surpassedTime = 0;
 export function updateBombs(deltaTime) {
