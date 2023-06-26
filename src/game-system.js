@@ -1,3 +1,4 @@
+import { bombState } from "./bombs.js";
 import { collisionState } from "./collision-detection.js"
 
 const KILLSCREEN_DELAY = 250;
@@ -28,6 +29,7 @@ const CLOCK_REFRESH_TIME = 1000;
 
 let killScreenTimer = undefined;
 let surpassedTime = 0;
+let timeString = '00:00:00';
 export function gameSystem(deltaTime) {
   gameState.timer += deltaTime;
 
@@ -37,14 +39,9 @@ export function gameSystem(deltaTime) {
 
   if (surpassedTime > CLOCK_REFRESH_TIME && gameState.phase ==='game') {
     const clock = document.getElementById('clock');
-    const timeString = new Date(gameState.timer).toISOString().substr(11, 8)
     clock.innerText = timeString;
+    timeString = new Date(gameState.timer).toISOString().substr(11, 8);
     surpassedTime = 0;
-  }
-
-
-  if (collisionState.didCollide) {
-    gameState.phase = 'killscreen';
   }
 
   if (gameState.phase === 'intro') {
@@ -52,6 +49,15 @@ export function gameSystem(deltaTime) {
       intro.classList.add('active');
       document.addEventListener('mousedown', start)
     }
+  }
+
+  if (collisionState.didCollide) {
+    gameState.phase = 'killscreen';
+    const clock = document.getElementById('game-over-clock');
+    clock.innerText = timeString;
+    const bombs = document.getElementById('game-over-bombs');
+    bombs.innerText = bombState.bombsUsed;
+
   }
 
   if (killScreenTimer === undefined && gameState.phase === 'killscreen') {

@@ -7,7 +7,6 @@
       type="module"
     ></script>
     <style>
-      /* use Silkscreen-Regular.ttf everywhere */
       @font-face {
         font-family: 'Silkscreen';
         src: url('./assets/Silkscreen-Regular.ttf') format('truetype');
@@ -79,6 +78,7 @@
       }
 
       .overlay {
+        text-align: center;
         pointer-events: none;
         color: white;
         z-index: 99;
@@ -115,12 +115,16 @@
         text-align: center;
       }
 
+      .t-med {
+        font-size: 24px;
+      }
+
       .t-big {
-        font-size: 30px;
+        font-size: 32px;
       }
 
       .t-bigger {
-        font-size: 36px;
+        font-size: 38px;
       }
 
       .intro-bg {
@@ -169,11 +173,15 @@
       <div class="overlay-modal killscreen-bg">
         <div class="overlay-modal-inner">
           <h2 class="t-bgger">GAME OVER</h2>
+          <div class="t-med">Time: <span id="game-over-clock"></span></div>
+          <div class="t-med">Bombs used: <span id="game-over-bombs"></span></div>
           <div class="flash-anim">CLICK TO RESTART!</div>
         </div>
       </div>
     </div>
-    <div class="t-big clock" id="clock">00:00:00</div>
+    <div class='t-big'>
+      <div class="clock" id="clock">00:00:00</div>
+    </div>
   </div>
   </body>
 </html>

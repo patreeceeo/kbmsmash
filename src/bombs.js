@@ -13,6 +13,11 @@ const colors = [
   '#b3b3b3'
 ];
 
+export const bombState = {
+  bombsUsed: 0
+};
+
+// TODO: should move this into bombState
 export const bombPositions = new Map();
 
 const maxBombs = 9;
@@ -56,6 +61,7 @@ export function updateBombs(deltaTime) {
       let newBomb = false;
       for (let [key, value] of keyGrid) {
         if (value.character === k && !bombPositions.has(key)) {
+          bombState.bombsUsed++;
           bombPositions.set(key, {
             x: value.x,
             y: value.y,
