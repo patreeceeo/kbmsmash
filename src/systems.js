@@ -8,9 +8,14 @@ import {rad2deg} from "./math.js";
 
 export function inputSystem() {
   const pos = input.position;
-  clamp(input.position, 1);
-  pos.angle = rad2deg(Math.atan2(pos.y, pos.x));
-  pos.magnitude = Math.sqrt(pos.x * pos.x + pos.y * pos.y);
+  if(input.leftClick) {
+    clamp(input.position, 1);
+    pos.angle = rad2deg(Math.atan2(pos.y, pos.x));
+    pos.magnitude = Math.sqrt(pos.x * pos.x + pos.y * pos.y);
+  } else {
+    pos.magnitude = 0;
+    pos.x = pos.y = 0;
+  }
 }
 import { START_RADIUS, EXPLODE_RADIUS} from "./collision-detection.js";
 
