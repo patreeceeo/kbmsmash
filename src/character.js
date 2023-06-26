@@ -8,7 +8,7 @@ const character = {
   spriteKey: "rightDown"
 }
 
-export const VELOCITY_SCALE = 0.005;
+export const VELOCITY_SCALE = 0.008;
 
 const sliceAngle = 360 / 16;
 /**
