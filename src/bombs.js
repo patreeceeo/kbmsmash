@@ -43,7 +43,7 @@ export function updateBombs(deltaTime) {
     value.countdown -= surpassedTime;
 
     if (value.countdown <= 0 && value.explodedCountdown === undefined) {
-      play('bombExplode')
+      play('bombExplode', 40)
       value.explodedCountdown = explodesFor;
       value.spriteSet = 'explode';
       value.spriteKey = '8';
