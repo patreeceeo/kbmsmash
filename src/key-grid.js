@@ -20,6 +20,7 @@ export function setContainerDimensions() {
 const resizeObserver = new ResizeObserver(() => {
   setContainerDimensions();
 });
+
 resizeObserver.observe(getForegroundCanvas());
 
 
@@ -34,7 +35,7 @@ function drawKeyGrid() {
     for (let y = 0; y <= GRID_WIDTH - 1; y++) {
       const cell = document.createElement('div');
       cell.classList.add('keygrid-cell');
-      cell.innerText = `${x},${y},${keyGrid.get(`${x},${y}`).character}`;
+      cell.innerText = `${keyGrid.get(`${x},${y}`).character}`;
       container.appendChild(cell);
     }
   }
