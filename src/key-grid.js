@@ -44,6 +44,7 @@ function drawKeyGrid() {
       cell.style.height = `${100 / GRID_WIDTH}%`;
       cell.style.left = `${x * (100 / GRID_WIDTH)}%`;
       cell.style.top = `${y * (100 / GRID_WIDTH)}%`;
+      cell.style.fontSize = `80px`;
       cell.innerText = `${keyGrid.get(`${x},${y}`).character}`;
       container.appendChild(cell);
     }
