@@ -1,4 +1,5 @@
 import {HEIGHT, WIDTH} from "./constants.js";
+import {clamp} from "./vec2.js";
 
 const character = {
   position: { x: WIDTH / 2, y: HEIGHT / 2 },
@@ -33,6 +34,7 @@ export function updateVelocity(inputPosition, deltaTime) {
   if(angle > (45 - sliceAngle) && angle < (45 + sliceAngle) || angle > (45 + 90 - sliceAngle) && angle < (45 + 90 + sliceAngle) || angle > (45 + 180 - sliceAngle) && angle < (45 + 180 + sliceAngle) || angle > (45 + 270 - sliceAngle) && angle < (45 + 270 + sliceAngle)) {
     cV.x = magnitude * scale * Math.sign(xIn);
     cV.y = magnitude * scale * Math.sign(yIn);
+    clamp(cV, scale);
   }
 }
 
