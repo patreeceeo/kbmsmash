@@ -3,12 +3,14 @@ import { GRID_HEIGHT, GRID_WIDTH, HEIGHT, WIDTH } from "./constants.js";
 import { character, updateSpriteKey, updateVelocity } from "./character.js";
 import { getCache, getForegroundCanvas, SpriteState } from "./graphics.js";
 import { bombPositions } from "./bombs.js";
-import {clamp, isZero} from "./vec2.js";
-import {rad2deg} from "./math.js";
+import { clamp, isZero } from "./vec2.js";
+import { rad2deg } from "./math.js";
+import { play } from "./audio.js";
+import { EXPLODE_RADIUS } from "./collision-detection.js";
 
 export function inputSystem() {
   const pos = input.position;
-  if(input.leftClick) {
+  if (input.leftClick) {
     clamp(input.position, 1);
     pos.angle = rad2deg(Math.atan2(pos.y, pos.x));
     pos.magnitude = Math.sqrt(pos.x * pos.x + pos.y * pos.y);
@@ -17,16 +19,13 @@ export function inputSystem() {
     pos.x = pos.y = 0;
   }
 }
-import { START_RADIUS, EXPLODE_RADIUS} from "./collision-detection.js";
-import {gameState} from "./game-system.js";
-import {play} from "./audio.js";
 
 /** @param {number} deltaTime */
 export function movementSystem(deltaTime) {
   // update character position every frame.
   // character moves 1 unit per frame.
   updateVelocity(input.position, deltaTime);
-  if(!isZero(character.velocity)) {
+  if (!isZero(character.velocity)) {
     play("walk");
   }
   character.position.x = Math.min(
@@ -72,35 +71,21 @@ export function graphicsSystem(deltaTime) {
     const bombSprite = SpriteState.find(spriteSet, spriteKey);
     const bombImg = getCache(bombSprite.imageId);
 
-    const xOffset = spriteSet === 'bomb' ? 24 : 32;
-    const yOffset = spriteSet === 'bomb' ? 60 : 30;
+    const xOffset = spriteSet === "bomb" ? 24 : 32;
+    const yOffset = spriteSet === "bomb" ? 60 : 30;
 
     ctx.lineWidth = 0;
-    ctx.strokeStyle = 'transparent';
+    ctx.strokeStyle = "transparent";
     ctx.fillStyle = color;
     const radius = EXPLODE_RADIUS;
     if (explodedCountdown > 0) {
-      ctx.ellipse(
-        xCoord,
-        yCoord,
-        radius,
-        radius,
-        0,
-        0,
-        2 * Math.PI
-      );
+      ctx.ellipse(xCoord, yCoord, radius, radius, 0, 0, 2 * Math.PI);
       ctx.fill();
       ctx.stroke();
     }
 
-    ctx.drawImage(
-      bombImg,
-      xCoord - xOffset,
-      yCoord - yOffset
-    );
-
+    ctx.drawImage(bombImg, xCoord - xOffset, yCoord - yOffset);
   }
-
 
   // draw virtual joystick
   ctx.lineWidth = 1;
@@ -122,4 +107,3 @@ export function graphicsSystem(deltaTime) {
   );
   ctx.stroke();
 }
-
