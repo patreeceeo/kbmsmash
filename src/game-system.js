@@ -1,12 +1,12 @@
+import {ANIMATION_FRAME_DURATION, character, DEATH_ANIMATION} from "./character.js";
 import { collisionState } from "./collision-detection.js"
 
-const KILLSCREEN_DELAY = 250;
+const KILLSCREEN_DELAY = DEATH_ANIMATION.length * ANIMATION_FRAME_DURATION;
 export const gameState = {
-  phase: 'intro', // intro | game | killscreen
+  /** @type {'intro' | 'game' | 'killscreen'} */
+  phase: 'intro',
   timer: 0,
 }
-
-let elapsed = 0;
 
 const intro = document.getElementById('intro');
 const killscreen = document.getElementById('killscreen');
@@ -24,13 +24,10 @@ function restart() {
   window.location.reload();
 }
 
-let time = 0
-let timer = undefined;
 export function gameSystem(deltaTime) {
-  time += deltaTime;
-
-  if (collisionState.didCollide) {
+  if (gameState.phase === 'game' && collisionState.didCollide) {
     gameState.phase = 'killscreen';
+    character.deathTime = 0;
   }
 
   if (gameState.phase === 'intro') {
@@ -40,11 +37,12 @@ export function gameSystem(deltaTime) {
     }
   }
 
-  if (timer === undefined && gameState.phase === 'killscreen') {
-    timer = setTimeout(() => {
+  if (gameState.phase === 'killscreen') {
+    character.deathTime += deltaTime;
+    if (character.deathTime >= KILLSCREEN_DELAY) {
       killscreen.classList.add('active');
       document.addEventListener('mousedown', restart)
-    }, KILLSCREEN_DELAY);
+    }
   }
 
 }

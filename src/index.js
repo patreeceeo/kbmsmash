@@ -15,6 +15,15 @@ const promises = [
   loadSprite("/assets/Robot_right.png", "robot", "right", 48, 48),
   loadSprite("/assets/Robot_rightUp.png", "robot", "rightUp", 48, 48),
   loadSprite("/assets/Robot_rightDown.png", "robot", "rightDown", 48, 48),
+  loadSprite("/assets/Robot_die1.png", "robot", "die1", 48, 48),
+  loadSprite("/assets/Robot_die2.png", "robot", "die2", 48, 48),
+  loadSprite("/assets/Robot_die3.png", "robot", "die3", 48, 48),
+  loadSprite("/assets/Robot_die4.png", "robot", "die4", 48, 48),
+  loadSprite("/assets/Robot_die5.png", "robot", "die5", 48, 48),
+  loadSprite("/assets/Robot_die6.png", "robot", "die6", 48, 48),
+  loadSprite("/assets/Robot_die7.png", "robot", "die7", 48, 48),
+  loadSprite("/assets/Robot_die8.png", "robot", "die8", 48, 48),
+  loadSprite("/assets/Robot_die9.png", "robot", "die9", 48, 48),
 ]
 
 Promise.all(promises).then(() => {

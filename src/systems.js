@@ -18,6 +18,7 @@ export function inputSystem() {
   }
 }
 import { START_RADIUS, EXPLODE_RADIUS} from "./collision-detection.js";
+import {gameState} from "./game-system.js";
 
 /** @param {number} deltaTime */
 export function movementSystem(deltaTime) {
