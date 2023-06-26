@@ -55,8 +55,8 @@ export function graphicsSystem(deltaTime) {
 
     // TODO: x and y are reduced?!?!?
     ctx.ellipse(
-      yCoord,
       xCoord,
+      yCoord,
       radius,
       radius,
       0,

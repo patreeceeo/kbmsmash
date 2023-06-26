@@ -35,6 +35,11 @@ function drawKeyGrid() {
     for (let y = 0; y <= GRID_WIDTH - 1; y++) {
       const cell = document.createElement('div');
       cell.classList.add('keygrid-cell');
+      cell.style.width = `${100 / GRID_WIDTH}%`;
+      cell.style.height = `${100 / GRID_WIDTH}%`;
+      cell.style.left = `${x * (100 / GRID_WIDTH)}%`;
+      cell.style.top = `${y * (100 / GRID_WIDTH)}%`;
+
       cell.innerText = `${keyGrid.get(`${x},${y}`).character}`;
       container.appendChild(cell);
     }
@@ -52,7 +57,7 @@ export function generateGrid(deltaTime) {
 
   for (let x = 0; x < GRID_WIDTH; x++) {
     for (let y = 0; y < GRID_HEIGHT; y++) {
-      keyGrid.set(`${x},${y}`, {x, y, character: characters[i] });
+      keyGrid.set(`${x},${y}`, { x, y, character: characters[i] });
       i++;
     }
   }
