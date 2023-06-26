@@ -43,14 +43,14 @@ export function graphicsSystem(deltaTime) {
   // draw bombs
   for (const [key, val] of bombPositions) {
     ctx.beginPath();
-    ctx.strokeStyle = "red";
-    const { x, y, explodedCountdown } = val;
+    ctx.lineWidth = 4;
+    const { x, y, explodedCountdown, color } = val;
+    ctx.strokeStyle = color;
     // x and y are on the key-grid (0-4 for x and y)
     // we need to make them from 0-WIDTH and 0-HEIGHT
     const radius = explodedCountdown ? 60 : 30;
     const xCoord = (x + 0.5) * (WIDTH / GRID_WIDTH);
     const yCoord = (y + 0.5) * (HEIGHT / GRID_HEIGHT);
-
 
     // TODO: x and y are reduced?!?!?
     ctx.ellipse(
@@ -67,6 +67,7 @@ export function graphicsSystem(deltaTime) {
 
 
   // draw virtual joystick
+  ctx.lineWidth = 1;
   ctx.beginPath();
   ctx.strokeStyle = "white";
   ctx.ellipse(10, 10, 9, 9, 0, 0, 2 * Math.PI);

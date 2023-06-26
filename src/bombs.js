@@ -2,13 +2,23 @@ import { GRID_WIDTH, GRID_HEIGHT } from './constants.js';
 import { input } from './event-handling.js'
 import { keyGrid } from './key-grid.js';
 
+const colors = [
+  '#8dd836',
+  '#008751',
+  '#edd446',
+  '#e48e2a',
+  '#cc3636',
+  '#761f28',
+  '#e97fc2',
+  '#b3b3b3'
+];
+
 export const bombPositions = new Map();
 
-const maxBombs = 6;
-const bombCountdown = 4000;
-const explodesFor = 250;
+const maxBombs = 9;
+const bombCountdown = 1600;
+const explodesFor = 300;
 const bombRadius = 1;
-const cooldown = 1000;
 
 let surpassedTime = 0;
 export function updateBombs(deltaTime) {
@@ -50,7 +60,8 @@ export function updateBombs(deltaTime) {
             x: value.x,
             y: value.y,
             explodedCountdown: undefined,
-            countdown: bombCountdown
+            countdown: bombCountdown,
+            color: colors[Math.floor(Math.random() * colors.length)]
           })
           newBomb = true;
           break;
