@@ -49,9 +49,10 @@ export function movementSystem(deltaTime) {
 
 /** @param {number} deltaTime */
 export function graphicsSystem(deltaTime) {
+  const canvas = getForegroundCanvas();
+
   const sprite = SpriteState.find("robot", character.spriteKey);
   const image = getCache(sprite.imageId);
-  const canvas = getForegroundCanvas();
   const ctx = /** @type {CanvasRenderingContext2D} */ (canvas.getContext("2d"));
   ctx.clearRect(0, 0, WIDTH, HEIGHT);
   ctx.drawImage(
@@ -63,26 +64,41 @@ export function graphicsSystem(deltaTime) {
   // draw bombs
   for (const [key, val] of bombPositions) {
     ctx.beginPath();
-    const { x, y, explodedCountdown, color } = val;
-    ctx.lineWidth = explodedCountdown ? 8 : 4;
-    ctx.strokeStyle = explodedCountdown ? color : '#6737B4';
-    // x and y are on the key-grid (0-4 for x and y)
-    // we need to make them from 0-WIDTH and 0-HEIGHT
-    const radius = explodedCountdown ? EXPLODE_RADIUS : START_RADIUS;
+    const { x, y, explodedCountdown, color, spriteSet, spriteKey } = val;
     const xCoord = (x + 0.5) * (WIDTH / GRID_WIDTH);
     const yCoord = (y + 0.5) * (HEIGHT / GRID_HEIGHT);
 
-    // TODO: x and y are reduced?!?!?
-    ctx.ellipse(
-      xCoord,
-      yCoord,
-      radius,
-      radius,
-      0,
-      0,
-      2 * Math.PI
+    // bomb image
+    const bombSprite = SpriteState.find(spriteSet, spriteKey);
+    const bombImg = getCache(bombSprite.imageId);
+
+    const xOffset = spriteSet === 'bomb' ? 24 : 32;
+    const yOffset = spriteSet === 'bomb' ? 60 : 30;
+
+    ctx.lineWidth = 0;
+    ctx.strokeStyle = 'transparent';
+    ctx.fillStyle = color;
+    const radius = EXPLODE_RADIUS;
+    if (explodedCountdown > 0) {
+      ctx.ellipse(
+        xCoord,
+        yCoord,
+        radius,
+        radius,
+        0,
+        0,
+        2 * Math.PI
+      );
+      ctx.fill();
+      ctx.stroke();
+    }
+
+    ctx.drawImage(
+      bombImg,
+      xCoord - xOffset,
+      yCoord - yOffset
     );
-    ctx.stroke();
+
   }
 
 
