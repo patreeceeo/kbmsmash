@@ -13,13 +13,14 @@ function pointCircle(px, py, cx, cy, r) {
   return false;
 }
 
-const collisionState = {
+export const collisionState = {
   didCollide: false,
 }
 
 export const START_RADIUS = 10;
 export const EXPLODE_RADIUS = 60;
-const REFRESH_TIME = 10;
+
+const REFRESH_TIME = 20;
 let surpassedTime = 0;
 
 export function collisionDetection(deltaTime) {
