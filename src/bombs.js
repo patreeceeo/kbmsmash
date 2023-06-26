@@ -13,16 +13,17 @@ const colors = [
   '#b3b3b3'
 ];
 
+// TODO: should move this into bombState
+export const bombPositions = new Map();
+
 export const bombState = {
   bombsUsed: 0
 };
 
-// TODO: should move this into bombState
-export const bombPositions = new Map();
 
 const maxBombs = 9;
 const bombCountdown = 1600;
-const explodesFor = 300;
+const explodesFor = 600;
 const bombRadius = 1;
 
 let surpassedTime = 0;
@@ -37,14 +38,20 @@ export function updateBombs(deltaTime) {
   // Bomb state
   for (let [key, value] of bombPositions) {
 
+    // bomb sprikeKey is 1-6 bomb art
     value.countdown -= surpassedTime;
 
     if (value.countdown <= 0 && value.explodedCountdown === undefined) {
       value.explodedCountdown = explodesFor;
+      value.spriteSet = 'explode';
+      value.spriteKey = '8';
     }
 
     if (value.explodedCountdown !== undefined) {
       value.explodedCountdown -= surpassedTime;
+      value.spriteKey = `${Math.max(0,Math.ceil((value.explodedCountdown / explodesFor) * 8))}`;
+    } else {
+      value.spriteKey = `${Math.max(0,Math.ceil((value.countdown / bombCountdown) * 6))}`;
     }
 
     if (value.explodedCountdown <= 0) {
@@ -67,6 +74,9 @@ export function updateBombs(deltaTime) {
             y: value.y,
             explodedCountdown: undefined,
             countdown: bombCountdown,
+            spriteSet: 'bomb',
+            spriteKey: '6',
+
             color: colors[Math.floor(Math.random() * colors.length)]
           })
           newBomb = true;

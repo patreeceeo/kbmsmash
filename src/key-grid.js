@@ -1,6 +1,7 @@
 import { shuffle } from './shuffle.js';
 import { CHAR_POOL, GRID_WIDTH, GRID_HEIGHT } from './constants.js';
 import { getForegroundCanvas } from './graphics.js';
+// import { bombPositions } from './bombs.js';
 
 const container = document.getElementById('keygrid');
 container.style.opacity = 0;
@@ -33,6 +34,10 @@ function drawKeyGrid() {
   for (let x = 0; x <= GRID_WIDTH - 1; x++) {
     // draw a div for each column
     for (let y = 0; y <= GRID_WIDTH - 1; y++) {
+
+      // TODO: This is a circular dep...
+      // if (bombPositions.has(`${x},${y}`)) continue;
+
       const cell = document.createElement('div');
       cell.classList.add('keygrid-cell');
       cell.style.width = `${100 / GRID_WIDTH}%`;
