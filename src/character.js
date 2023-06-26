@@ -1,5 +1,7 @@
+import {HEIGHT, WIDTH} from "./constants.js";
+
 const character = {
-  position: { x: 0, y: 0 },
+  position: { x: WIDTH / 2, y: HEIGHT / 2 },
   velocity: { x: 0, y: 0},
   radius: 24,
   spriteKey: "rightDown"
