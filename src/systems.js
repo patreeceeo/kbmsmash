@@ -71,29 +71,30 @@ export function graphicsSystem(deltaTime) {
     const xOffset = spriteSet === 'bomb' ? 24 : 32;
     const yOffset = spriteSet === 'bomb' ? 60 : 30;
 
+    ctx.lineWidth = 0;
+    ctx.strokeStyle = 'transparent';
+    ctx.fillStyle = color;
+    const radius = EXPLODE_RADIUS;
+    if (explodedCountdown > 0) {
+      ctx.ellipse(
+        xCoord,
+        yCoord,
+        radius,
+        radius,
+        0,
+        0,
+        2 * Math.PI
+      );
+      ctx.fill();
+      ctx.stroke();
+    }
+
     ctx.drawImage(
       bombImg,
       xCoord - xOffset,
       yCoord - yOffset
     );
 
-    // explosion radius
-    ctx.lineWidth = 4;
-    ctx.strokeStyle = color;
-    const radius = EXPLODE_RADIUS;
-    if (explodedCountdown > 0) {
-      ctx.ellipse(
-        xCoord,
-        yCoord,
-        radius - ctx.lineWidth,
-        radius - ctx.lineWidth,
-        0,
-        0,
-        2 * Math.PI
-      );
-
-      ctx.stroke();
-    }
   }
 
 
