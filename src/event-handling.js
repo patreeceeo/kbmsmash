@@ -1,9 +1,9 @@
-import {clamp} from "./vec2.js";
 
+/** @typedef {{angle: number, magnitude: number, x: number, y: number}} Polar */
 const input = {
   // array of keys pressed
   keysPressed: [],
-  position: { x: 0 , y: 0 }
+  position: { angle: 0, magnitude: 0, x: 0, y: 0 },
 };
 
 const canvas = document.getElementById('foreground');
@@ -18,9 +18,9 @@ document.addEventListener("mousemove", (e) => {
   if (document.pointerLockElement === canvas) {
     if(!firstMove){
       const { movementX, movementY } = e;
-      input.position.x += Math.min(movementX, 10) / 10;
-      input.position.y += Math.min(movementY, 10) / 10;
-      clamp(input.position, 1);
+      const pos = input.position;
+      pos.x += Math.min(movementX, 10) / 10;
+      pos.y += Math.min(movementY, 10) / 10;
     }
     firstMove = false;
   }

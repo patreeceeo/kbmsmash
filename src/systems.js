@@ -1,15 +1,23 @@
 import { input } from "./event-handling.js";
-import { GRID_HEIGHT, GRID_WIDTH, HEIGHT, VELOCITY_SCALE, WIDTH } from "./constants.js";
-import { character } from "./character.js";
+import { GRID_HEIGHT, GRID_WIDTH, HEIGHT, WIDTH } from "./constants.js";
+import { character, updateSpriteKey, updateVelocity } from "./character.js";
 import { getCache, getForegroundCanvas, SpriteState } from "./graphics.js";
 import { bombPositions } from "./bombs.js";
+import {clamp} from "./vec2.js";
+import {rad2deg} from "./math.js";
+
+export function inputSystem() {
+  const pos = input.position;
+  clamp(input.position, 1);
+  pos.angle = rad2deg(Math.atan2(pos.y, pos.x));
+  pos.magnitude = Math.sqrt(pos.x * pos.x + pos.y * pos.y);
+}
 
 /** @param {number} deltaTime */
 export function movementSystem(deltaTime) {
   // update character position every frame.
   // character moves 1 unit per frame.
-  character.velocity.x = input.position.x * deltaTime * VELOCITY_SCALE;
-  character.velocity.y = input.position.y * deltaTime * VELOCITY_SCALE;
+  updateVelocity(input.position, deltaTime);
   character.position.x = Math.min(
     WIDTH - character.radius,
     Math.max(
@@ -25,11 +33,12 @@ export function movementSystem(deltaTime) {
       (character.position.y += character.velocity.y * deltaTime)
     )
   );
+  updateSpriteKey();
 }
 
 /** @param {number} deltaTime */
 export function graphicsSystem(deltaTime) {
-  const sprite = SpriteState.find("robot", "idle");
+  const sprite = SpriteState.find("robot", character.spriteKey);
   const image = getCache(sprite.imageId);
   const canvas = getForegroundCanvas();
   const ctx = /** @type {CanvasRenderingContext2D} */ (canvas.getContext("2d"));

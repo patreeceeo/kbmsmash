@@ -1,3 +1,4 @@
+import {isAlmostZero} from "./math.js";
 /**
   * @typedef {{x: number, y: number}} Vec2
   */
@@ -48,8 +49,10 @@ export function getLengthSquared(o) {
 }
 
 /**
-  * @param {number} n
+  * @param {Vec2} o
+  * @returns boolean
   */
-export function isAlmostZero(n, tolerance = Number.EPSILON) {
-  return Math.abs(n) <= tolerance;
+export function isZero(o) {
+  return o.x === 0 && o.y === 0;
 }
+
