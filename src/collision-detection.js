@@ -10,6 +10,7 @@ function pointCircle(px, py, cx, cy, r) {
   if (distance <= r) {
     return true;
   }
+
   return false;
 }
 

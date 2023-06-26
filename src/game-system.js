@@ -2,8 +2,7 @@ import { collisionState } from "./collision-detection.js"
 
 const KILLSCREEN_DELAY = 250;
 export const gameState = {
-  isIntroScreen: true,
-  isGameOver: false,
+  phase: 'intro', // intro | game | killscreen
   timer: 0,
 }
 
@@ -13,7 +12,7 @@ const intro = document.getElementById('intro');
 const killscreen = document.getElementById('killscreen');
 
 function start() {
-  gameState.isIntroScreen = false;
+  gameState.phase = 'game';
   intro.classList.remove('active');
   document.removeEventListener('mousedown', start);
 }
@@ -25,20 +24,24 @@ function restart() {
   window.location.reload();
 }
 
-export function gameSystem() {
+let time = 0
+let timer = undefined;
+export function gameSystem(deltaTime) {
+  time += deltaTime;
 
   if (collisionState.didCollide) {
-    gameState.isGameOver = true;
+    gameState.phase = 'killscreen';
   }
 
-  if (gameState.isIntroScreen) {
-    intro.classList.add('active');
-    document.addEventListener('mousedown', start)
+  if (gameState.phase === 'intro') {
+    if (!intro.classList.contains('active')) {
+      intro.classList.add('active');
+      document.addEventListener('mousedown', start)
+    }
   }
 
-  if (gameState.isGameOver) {
-    // TODO: This is hacky.
-    setTimeout(() => {
+  if (timer === undefined && gameState.phase === 'killscreen') {
+    timer = setTimeout(() => {
       killscreen.classList.add('active');
       document.addEventListener('mousedown', restart)
     }, KILLSCREEN_DELAY);
