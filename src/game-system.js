@@ -24,10 +24,24 @@ function restart() {
   window.location.reload();
 }
 
-let time = 0
-let timer = undefined;
+const CLOCK_REFRESH_TIME = 1000;
+
+let killScreenTimer = undefined;
+let surpassedTime = 0;
 export function gameSystem(deltaTime) {
-  time += deltaTime;
+  gameState.timer += deltaTime;
+
+  if (gameState.phase === 'game') {
+    surpassedTime += deltaTime;
+  }
+
+  if (surpassedTime > CLOCK_REFRESH_TIME && gameState.phase ==='game') {
+    const clock = document.getElementById('clock');
+    const timeString = new Date(gameState.timer).toISOString().substr(11, 8)
+    clock.innerText = timeString;
+    surpassedTime = 0;
+  }
+
 
   if (collisionState.didCollide) {
     gameState.phase = 'killscreen';
@@ -40,8 +54,8 @@ export function gameSystem(deltaTime) {
     }
   }
 
-  if (timer === undefined && gameState.phase === 'killscreen') {
-    timer = setTimeout(() => {
+  if (killScreenTimer === undefined && gameState.phase === 'killscreen') {
+    killScreenTimer = setTimeout(() => {
       killscreen.classList.add('active');
       document.addEventListener('mousedown', restart)
     }, KILLSCREEN_DELAY);

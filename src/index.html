@@ -18,6 +18,7 @@
       body {
         font-family: 'Silkscreen', sans-serif;
         background-color: rgb(10,0,20);
+        color: white;
       }
 
       #app {
@@ -29,8 +30,8 @@
         display: flex;
         justify-content: center;
         align-items: center;
-
       }
+
       #foreground {
         background-color: rgb(15,0,40);
         position: absolute;
@@ -38,17 +39,27 @@
         z-index: 1;
         image-rendering: pixelated;
       }
+
       #keygrid {
         z-index: 2;
         position: absolute;
         pointer-events: none;
         color: white;
        }
-      .keygrid-cell {
+
+       .keygrid-cell {
         position: absolute;
         display: flex;
         justify-content: center;
         align-items: center;
+      }
+
+      #clock {
+        z-index: 2;
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        background-color: rgb(10,0,20);
       }
 
       #intro {
@@ -146,10 +157,9 @@
     <div id="app">
       <canvas id="foreground"></canvas>
       <div id="keygrid"></div>
-    </div>
-    <div class="t-big overlay" id="intro">
-      <div class="overlay-modal intro-bg">
-        <div class="overlay-modal-inner">
+      <div class="t-big overlay" id="intro">
+        <div class="overlay-modal intro-bg">
+          <div class="overlay-modal-inner">
           <h2 class="t-bgger">KBDSMASH</h2>
           <div class="flash-anim">CLICK TO START!</div>
         </div>
@@ -162,7 +172,8 @@
           <div class="flash-anim">CLICK TO RESTART!</div>
         </div>
       </div>
-
     </div>
+    <div class="t-big clock" id="clock">00:00:00</div>
+  </div>
   </body>
 </html>
