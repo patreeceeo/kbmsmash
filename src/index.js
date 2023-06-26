@@ -34,7 +34,6 @@ function gameLoop() {
   inputSystem();
   movementSystem(deltaTime);
   graphicsSystem(deltaTime);
-
   generateGrid(deltaTime)
 
   updateBombs(deltaTime);
