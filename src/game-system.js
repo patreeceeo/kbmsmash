@@ -1,4 +1,5 @@
 import {ANIMATION_FRAME_DURATION, character, DEATH_ANIMATION} from "./character.js";
+import { bombState } from "./bombs.js";
 import { collisionState } from "./collision-detection.js"
 
 const KILLSCREEN_DELAY = DEATH_ANIMATION.length * ANIMATION_FRAME_DURATION;
@@ -24,10 +25,22 @@ function restart() {
   window.location.reload();
 }
 
+const CLOCK_REFRESH_TIME = 1000;
+
+let surpassedTime = 0;
+let timeString = '00:00:00';
 export function gameSystem(deltaTime) {
-  if (gameState.phase === 'game' && collisionState.didCollide) {
-    gameState.phase = 'killscreen';
-    character.deathTime = 0;
+  gameState.timer += deltaTime;
+
+  if (gameState.phase === 'game') {
+    surpassedTime += deltaTime;
+  }
+
+  if (surpassedTime > CLOCK_REFRESH_TIME && gameState.phase ==='game') {
+    const clock = document.getElementById('clock');
+    clock.innerText = timeString;
+    timeString = new Date(gameState.timer).toISOString().substr(11, 8);
+    surpassedTime = 0;
   }
 
   if (gameState.phase === 'intro') {
@@ -35,6 +48,16 @@ export function gameSystem(deltaTime) {
       intro.classList.add('active');
       document.addEventListener('mousedown', start)
     }
+  }
+
+  if (gameState.phase === 'game' && collisionState.didCollide) {
+    gameState.phase = 'killscreen';
+    character.deathTime = 0;
+    const clock = document.getElementById('game-over-clock');
+    clock.innerText = timeString;
+    const bombs = document.getElementById('game-over-bombs');
+    bombs.innerText = bombState.bombsUsed;
+
   }
 
   if (gameState.phase === 'killscreen') {

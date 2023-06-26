@@ -7,7 +7,6 @@
       type="module"
     ></script>
     <style>
-      /* use Silkscreen-Regular.ttf everywhere */
       @font-face {
         font-family: 'Silkscreen';
         src: url('./assets/Silkscreen-Regular.ttf') format('truetype');
@@ -18,6 +17,7 @@
       body {
         font-family: 'Silkscreen', sans-serif;
         background-color: rgb(10,0,20);
+        color: white;
       }
 
       #app {
@@ -29,8 +29,8 @@
         display: flex;
         justify-content: center;
         align-items: center;
-
       }
+
       #foreground {
         background-color: rgb(15,0,40);
         position: absolute;
@@ -38,17 +38,27 @@
         z-index: 1;
         image-rendering: pixelated;
       }
+
       #keygrid {
         z-index: 2;
         position: absolute;
         pointer-events: none;
         color: white;
        }
-      .keygrid-cell {
+
+       .keygrid-cell {
         position: absolute;
         display: flex;
         justify-content: center;
         align-items: center;
+      }
+
+      #clock {
+        z-index: 2;
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        background-color: rgb(10,0,20);
       }
 
       #intro {
@@ -68,6 +78,7 @@
       }
 
       .overlay {
+        text-align: center;
         pointer-events: none;
         color: white;
         z-index: 99;
@@ -104,12 +115,16 @@
         text-align: center;
       }
 
+      .t-med {
+        font-size: 24px;
+      }
+
       .t-big {
-        font-size: 30px;
+        font-size: 32px;
       }
 
       .t-bigger {
-        font-size: 36px;
+        font-size: 38px;
       }
 
       .intro-bg {
@@ -146,10 +161,9 @@
     <div id="app">
       <canvas id="foreground"></canvas>
       <div id="keygrid"></div>
-    </div>
-    <div class="t-big overlay" id="intro">
-      <div class="overlay-modal intro-bg">
-        <div class="overlay-modal-inner">
+      <div class="t-big overlay" id="intro">
+        <div class="overlay-modal intro-bg">
+          <div class="overlay-modal-inner">
           <h2 class="t-bgger">KBDSMASH</h2>
           <div class="flash-anim">CLICK TO START!</div>
         </div>
@@ -159,10 +173,15 @@
       <div class="overlay-modal killscreen-bg">
         <div class="overlay-modal-inner">
           <h2 class="t-bgger">GAME OVER</h2>
+          <div class="t-med">Time: <span id="game-over-clock"></span></div>
+          <div class="t-med">Bombs used: <span id="game-over-bombs"></span></div>
           <div class="flash-anim">CLICK TO RESTART!</div>
         </div>
       </div>
-
     </div>
+    <div class='t-big'>
+      <div class="clock" id="clock">00:00:00</div>
+    </div>
+  </div>
   </body>
 </html>
