@@ -1,6 +1,7 @@
 import {ANIMATION_FRAME_DURATION, character, DEATH_ANIMATION} from "./character.js";
 import { bombState } from "./bombs.js";
 import { collisionState } from "./collision-detection.js"
+import {play} from "./audio.js";
 
 const KILLSCREEN_DELAY = DEATH_ANIMATION.length * ANIMATION_FRAME_DURATION;
 export const gameState = {
@@ -57,7 +58,7 @@ export function gameSystem(deltaTime) {
     clock.innerText = timeString;
     const bombs = document.getElementById('game-over-bombs');
     bombs.innerText = bombState.bombsUsed;
-
+    play('death');
   }
 
   if (gameState.phase === 'killscreen') {

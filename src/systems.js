@@ -3,7 +3,7 @@ import { GRID_HEIGHT, GRID_WIDTH, HEIGHT, WIDTH } from "./constants.js";
 import { character, updateSpriteKey, updateVelocity } from "./character.js";
 import { getCache, getForegroundCanvas, SpriteState } from "./graphics.js";
 import { bombPositions } from "./bombs.js";
-import {clamp} from "./vec2.js";
+import {clamp, isZero} from "./vec2.js";
 import {rad2deg} from "./math.js";
 
 export function inputSystem() {
@@ -19,12 +19,16 @@ export function inputSystem() {
 }
 import { START_RADIUS, EXPLODE_RADIUS} from "./collision-detection.js";
 import {gameState} from "./game-system.js";
+import {play} from "./audio.js";
 
 /** @param {number} deltaTime */
 export function movementSystem(deltaTime) {
   // update character position every frame.
   // character moves 1 unit per frame.
   updateVelocity(input.position, deltaTime);
+  if(!isZero(character.velocity)) {
+    play("walk");
+  }
   character.position.x = Math.min(
     WIDTH - character.radius,
     Math.max(
@@ -102,3 +106,4 @@ export function graphicsSystem(deltaTime) {
   );
   ctx.stroke();
 }
+

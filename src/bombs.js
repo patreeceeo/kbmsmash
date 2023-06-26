@@ -1,3 +1,4 @@
+import {play} from './audio.js';
 import { GRID_WIDTH, GRID_HEIGHT } from './constants.js';
 import { input } from './event-handling.js'
 import { keyGrid } from './key-grid.js';
@@ -40,6 +41,7 @@ export function updateBombs(deltaTime) {
     value.countdown -= surpassedTime;
 
     if (value.countdown <= 0 && value.explodedCountdown === undefined) {
+      play('bombExplode')
       value.explodedCountdown = explodesFor;
     }
 
