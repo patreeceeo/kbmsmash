@@ -3,6 +3,7 @@ import { GRID_HEIGHT, GRID_WIDTH, HEIGHT, VELOCITY_SCALE, WIDTH } from "./consta
 import { character } from "./character.js";
 import { getCache, getForegroundCanvas, SpriteState } from "./graphics.js";
 import { bombPositions } from "./bombs.js";
+import { START_RADIUS, EXPLODE_RADIUS} from "./collision-detection.js";
 
 /** @param {number} deltaTime */
 export function movementSystem(deltaTime) {
@@ -48,7 +49,7 @@ export function graphicsSystem(deltaTime) {
     ctx.strokeStyle = color;
     // x and y are on the key-grid (0-4 for x and y)
     // we need to make them from 0-WIDTH and 0-HEIGHT
-    const radius = explodedCountdown ? 60 : 30;
+    const radius = explodedCountdown ? EXPLODE_RADIUS : START_RADIUS;
     const xCoord = (x + 0.5) * (WIDTH / GRID_WIDTH);
     const yCoord = (y + 0.5) * (HEIGHT / GRID_HEIGHT);
 

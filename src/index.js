@@ -1,8 +1,10 @@
 import { graphicsSystem, movementSystem } from './systems.js';
+import { gameSystem } from './game-system.js';
 import { getForegroundCanvas, loadSprite, setupCanvas } from "./graphics.js";
 import { keyGrid, generateGrid } from './key-grid.js';
 import { updateBombs } from './bombs.js'
 import {HEIGHT, WIDTH} from './constants.js';
+import { collisionDetection } from './collision-detection.js';
 
 loadSprite("/assets/BombDefusalRobot0008.png", "robot", "idle",48, 48).then(() => {
   const canvas = getForegroundCanvas();
@@ -24,6 +26,8 @@ function gameLoop() {
   generateGrid(deltaTime)
 
   updateBombs(deltaTime);
+  collisionDetection(deltaTime);
+  gameSystem(deltaTime);
 
 }
 
