@@ -1,7 +1,8 @@
 import { input } from "./event-handling.js";
-import { HEIGHT, VELOCITY_SCALE, WIDTH } from "./constants.js";
+import { GRID_HEIGHT, GRID_WIDTH, HEIGHT, VELOCITY_SCALE, WIDTH } from "./constants.js";
 import { character } from "./character.js";
 import { getCache, getForegroundCanvas, SpriteState } from "./graphics.js";
+import { bombPositions } from "./bombs.js";
 
 /** @param {number} deltaTime */
 export function movementSystem(deltaTime) {
@@ -38,6 +39,32 @@ export function graphicsSystem(deltaTime) {
     character.position.x - character.radius,
     character.position.y - character.radius
   );
+
+  // draw bombs
+  for (const [key, val] of bombPositions) {
+    ctx.beginPath();
+    ctx.strokeStyle = "red";
+    const { x, y, explodedCountdown } = val;
+    // x and y are on the key-grid (0-4 for x and y)
+    // we need to make them from 0-WIDTH and 0-HEIGHT
+    const radius = explodedCountdown ? 60 : 30;
+    const xCoord = (x + 0.5) * (WIDTH / GRID_WIDTH);
+    const yCoord = (y + 0.5) * (HEIGHT / GRID_HEIGHT);
+
+
+    // TODO: x and y are reduced?!?!?
+    ctx.ellipse(
+      yCoord,
+      xCoord,
+      radius,
+      radius,
+      0,
+      0,
+      2 * Math.PI
+    );
+    ctx.stroke();
+  }
+
 
   // draw virtual joystick
   ctx.beginPath();

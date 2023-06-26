@@ -2,7 +2,7 @@ import { GRID_WIDTH, GRID_HEIGHT } from './constants.js';
 import { input } from './event-handling.js'
 import { keyGrid } from './key-grid.js';
 
-const bombPositions = new Map();
+export const bombPositions = new Map();
 
 const maxBombs = 6;
 const bombCountdown = 4000;
@@ -15,7 +15,7 @@ export function updateBombs(deltaTime) {
 
   surpassedTime += deltaTime;
 
-  if (surpassedTime < 200) {
+  if (surpassedTime < 100) {
     return;
   }
 
@@ -61,5 +61,4 @@ export function updateBombs(deltaTime) {
   }
 
   surpassedTime = 0;
-
 }
