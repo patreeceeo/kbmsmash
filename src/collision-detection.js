@@ -17,7 +17,7 @@ export const collisionState = {
   didCollide: false,
 }
 
-export const START_RADIUS = 10;
+export const START_RADIUS = 20;
 export const EXPLODE_RADIUS = 60;
 
 const REFRESH_TIME = 20;

@@ -58,9 +58,9 @@ export function graphicsSystem(deltaTime) {
   // draw bombs
   for (const [key, val] of bombPositions) {
     ctx.beginPath();
-    ctx.lineWidth = 4;
     const { x, y, explodedCountdown, color } = val;
-    ctx.strokeStyle = color;
+    ctx.lineWidth = explodedCountdown ? 8 : 4;
+    ctx.strokeStyle = explodedCountdown ? color : '#6737B4';
     // x and y are on the key-grid (0-4 for x and y)
     // we need to make them from 0-WIDTH and 0-HEIGHT
     const radius = explodedCountdown ? EXPLODE_RADIUS : START_RADIUS;

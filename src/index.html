@@ -81,13 +81,22 @@
       }
 
       .overlay-modal {
+        position: relative;
         display: flex;
         flex-direction: column;
         justify-content: center;
         align-items: center;
-        padding: 30px 60px;
-        background-color: rgb(10,0,20);
+        width: 640px;
+        height: 480px;
       }
+
+      .overlay-modal-inner {
+        position: absolute;
+        bottom: 0;
+        background-color: rgb(10,0,20);
+        padding: 10px 20px;
+      }
+
       h2 {
         margin: 0;
         padding: 0;
@@ -101,6 +110,11 @@
 
       .t-bigger {
         font-size: 36px;
+      }
+
+      .intro-bg {
+        background: url('./assets/intro.png');
+        background-size: cover;
       }
 
       .flash-anim {
@@ -129,16 +143,21 @@
       <div id="keygrid"></div>
     </div>
     <div class="t-big overlay" id="intro">
-      <div class="overlay-modal">
-        <h2 class="t-bgger">KBDSMASH</h2>
-        <div class="flash-anim">CLICK TO START!</div>
+      <div class="overlay-modal intro-bg">
+        <div class="overlay-modal-inner">
+          <h2 class="t-bgger">KBDSMASH</h2>
+          <div class="flash-anim">CLICK TO START!</div>
+        </div>
       </div>
     </div>
     <div class="t-big overlay" id="killscreen">
-      <div class="overlay-modal">
-        <h2 class="t-bgger">Game over</h2>
-        <div class="flash-anim">CLICK TO RESTART!</div>
+      <div class="overlay-modal intro-bg">
+        <div class="overlay-modal-inner">
+          <h2 class="t-bgger">GAME OVER</h2>
+          <div class="flash-anim">CLICK TO RESTART!</div>
+        </div>
       </div>
+
     </div>
   </body>
 </html>
