@@ -21,6 +21,9 @@ export function updateVelocity(inputPosition, deltaTime) {
 
   cV.x = cV.y = 0;
 
+  if(magnitude < 0.2) {
+    return;
+  }
   if(angle < sliceAngle || angle > (360 - sliceAngle) || angle > (180 - sliceAngle) && angle < (180 + sliceAngle)) {
     cV.x = magnitude * scale * Math.sign(xIn);
   }
