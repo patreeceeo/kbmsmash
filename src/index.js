@@ -1,8 +1,10 @@
 import { graphicsSystem, inputSystem, movementSystem } from './systems.js';
+import { gameSystem } from './game-system.js';
 import { getForegroundCanvas, loadSprite, setupCanvas } from "./graphics.js";
 import { keyGrid, generateGrid } from './key-grid.js';
 import { updateBombs } from './bombs.js'
 import {HEIGHT, WIDTH} from './constants.js';
+import { collisionDetection } from './collision-detection.js';
 
 const promises = [
   loadSprite("/assets/Robot_up.png", "robot", "up", 48, 48),
@@ -36,7 +38,8 @@ function gameLoop() {
   generateGrid(deltaTime)
 
   updateBombs(deltaTime);
-
+  collisionDetection(deltaTime);
+  gameSystem(deltaTime);
 }
 
 

@@ -12,6 +12,7 @@ export function inputSystem() {
   pos.angle = rad2deg(Math.atan2(pos.y, pos.x));
   pos.magnitude = Math.sqrt(pos.x * pos.x + pos.y * pos.y);
 }
+import { START_RADIUS, EXPLODE_RADIUS} from "./collision-detection.js";
 
 /** @param {number} deltaTime */
 export function movementSystem(deltaTime) {
@@ -57,14 +58,14 @@ export function graphicsSystem(deltaTime) {
     ctx.strokeStyle = color;
     // x and y are on the key-grid (0-4 for x and y)
     // we need to make them from 0-WIDTH and 0-HEIGHT
-    const radius = explodedCountdown ? 60 : 30;
+    const radius = explodedCountdown ? EXPLODE_RADIUS : START_RADIUS;
     const xCoord = (x + 0.5) * (WIDTH / GRID_WIDTH);
     const yCoord = (y + 0.5) * (HEIGHT / GRID_HEIGHT);
 
     // TODO: x and y are reduced?!?!?
     ctx.ellipse(
-      yCoord,
       xCoord,
+      yCoord,
       radius,
       radius,
       0,
