@@ -20,6 +20,18 @@
         color: white;
       }
 
+      dt {
+        font-weight: bold;
+      }
+
+      dd {
+        margin-bottom: 1em;
+      }
+
+      a {
+        color: coral;
+      }
+
       #app {
         min-height: calc(min(100vh, 100vw) - 1rem);
         max-width: calc(min(100vh, 100vw) - 1rem);
@@ -81,6 +93,7 @@
         text-align: center;
         pointer-events: none;
         color: white;
+        text-shadow: 2px 2px 0px black;
         z-index: 99;
         position: fixed;
         inset: 0;
@@ -97,15 +110,17 @@
         flex-direction: column;
         justify-content: center;
         align-items: center;
-        width: 640px;
-        height: 480px;
+        width: 1280px;
+        height: 960px;
       }
 
       .overlay-modal-inner {
         position: absolute;
         bottom: 0;
-        background-color: rgb(10,0,20);
+        background-color: rgb(10,0,20, 0.4);
         padding: 10px 20px;
+        width: 100%;
+        height: 100%;
       }
 
       h2 {
@@ -124,7 +139,8 @@
       }
 
       .t-bigger {
-        font-size: 38px;
+        font-size: 4rem;
+        margin-bottom: 3em;
       }
 
       .intro-bg {
@@ -172,10 +188,18 @@
     <div class="t-big overlay" id="killscreen">
       <div class="overlay-modal killscreen-bg">
         <div class="overlay-modal-inner">
-          <h2 class="t-bgger">GAME OVER</h2>
+          <h2 class="t-bigger">GAME OVER</h2>
           <div class="t-med">Time: <span id="game-over-clock"></span></div>
           <div class="t-med">Bombs used: <span id="game-over-bombs"></span></div>
           <div class="flash-anim">CLICK TO RESTART!</div>
+          <section style="pointer-events: auto">
+            <h3>CREDITS</h3>
+            <dl>
+              <dt>Game design</dt><dd><a href="https://fenix-king.itch.io/">Fenix</a> & <a href="https://trashmoon.com">Saman</a></dd>
+              <dt>Art & SFX</dt><dd><a href="https://foxwarrior.itch.io">Zeno</a></dd>
+              <dt>Programming</dt><dd><a href="https://trashmoon.com">Saman</a> & <a href="https://codebaser.net">Patrick</a></dd>
+            </dl>
+          </section>
         </div>
       </div>
     </div>
